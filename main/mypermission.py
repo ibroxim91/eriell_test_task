@@ -7,7 +7,7 @@ from .positions import director
 class PermissionView(PermissionRequiredMixin):
     login_url = "/login/"
     permission_denied_message = "Для входа в систему сначала введите пароль для входа"
-
+    permission_required = 'main.view_group'
     def handle_no_permission(self):
         user = self.request.user
         if not user.is_authenticated:
