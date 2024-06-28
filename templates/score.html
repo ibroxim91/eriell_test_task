@@ -1,0 +1,91 @@
+{% extends 'wrapper.html' %}
+{% block content %}
+
+
+            <!-- ==== Sidebar end ==== -->
+
+            <div class="col-sm-12 col-md-8 col-lg-9 table-responsive">
+                <!-- ==== table start ==== -->
+                <div class="text-center">
+                    <h3>Оценки</h3>
+                </div>
+             
+                <table class="table table-striped table-hover table-borderless">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col" >Учитель</th>
+                        <th scope="col" >Группа</th>
+                        <th scope="col" >Студент </th>
+                        <th scope="col" >Предмет </th>
+                        <th scope="col" >Оценка </th>
+                        <th scope="col" >Дата </th>
+                     
+                     
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in score  %}
+                    <tr>
+                        <th scope="row">{{  s.id }}</th>
+                        <td >{{ s.teacher }}   </td>
+                        <td >{{ s.group }}   </td>
+                        <td > {{ s.student }}  </td>
+                        <td > {{ s.science }}  </td>
+                        <td > {{ s.point }}  </td>
+                        <td > {{ s.reg_date }}  </td>
+                      
+                       
+                      
+                       
+                    </tr>
+                    {% empty %}
+                        <h2 class="text-center m-4 bg-warning">Ничего не найдено</h2>
+                    {% endfor %}
+                   
+                </tbody>
+                </table>
+
+
+
+          <div class="dataTables_paginate paging_simple_numbers" id="complex_header_paginate">
+            <ul class="pagination">
+              
+             {% if page.prev_url %}   
+             <li class="paginate_button page-item previous disabled" id="complex_header_previous">
+               <a href="#" aria-controls="complex_header" data-dt-idx="0" tabindex="0" class="page-link">Предыдущий</a>
+              </li>
+            
+              {% endif %}
+             
+              {% for n in page.page_range %}
+             
+             
+                    
+      <li class="" {% if  page.number == n %}  {% endif %}>
+       <a {% if  page.number == n %} href="#" style="background: rgb(38, 206, 94);" {% else %} href="?page={{ n }}" {% endif %} aria-controls="complex_header" data-dt-idx="1" tabindex="0" class="page-link">{{ n }}
+  
+       </a>
+      </li>
+           
+          {% endfor %}
+             
+              
+              {% if page.next_url %}   
+              <li class="paginate_button page-item next" id="complex_header_next">
+                <a href="{{ page.next_url }}" aria-controls="complex_header" data-dt-idx="7" tabindex="0" class="page-link">Следующий</a>
+              </li>
+  
+              {% endif %}
+            </ul>
+            </div>
+                <!-- ==== table end ==== -->
+            </div>
+        
+        </div>
+   </div>
+
+    <!-- ==== Bootstrap Bundle with Popper ==== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    {% endblock %}

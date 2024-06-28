@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  My App </title>
+    <link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/fontawesome/css/all.css">
+    <link rel="stylesheet" href="/static/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/static/fontawesome/css/fontawesome.min.css">
+
+
+    <style>
+      .image{
+          
+        transition: all 0.7s;
+
+        }
+        .card{
+            padding: 15px;
+            margin-top: 15px;
+            transition: all 0.7s;
+        }
+        /* .card:hover{
+          transform: translateY(-10px);
+        } */
+        .card:hover .image{
+          transform: scale(1.1);
+
+        }
+        .navbar-brand a{
+          font-size: 1.4em !important;
+        }
+        .navbar-brand span{
+          font-size: 1.2em !important;
+          color: rgb(233, 14, 79);
+        }
+    </style>
+    
+
+  </head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
+        <a class="navbar-brand" href="/">My<span>App</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Главная <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">О нас</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link " href="/contact">Контакты</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <!-- <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
+          <a href="/login">
+            <i class="fa fa-sign-in-alt fa-2x mr-5 text-warning"></i>
+          </a> 
+          
+          </form>
+        </div>
+      </nav>
+
+      {% if messages %}
+      <div class="text-center alert alert-success p-3">
+        {% for m in messages %}
+        <h3 class="text-warning">{{ m }}</h3>
+        <a href="#" onclick="Close()">
+          <i class="fa fa-times float-right "></i>
+        </a>
+        {% endfor %}
+      </div>  
+          {% endif %}
+<div class="container mt-2">
+    <div class="row">
+      
+      {% if request.user.is_authenticated  %}
+      <!-- ==== Sidebar start ==== -->
+        <div class="bg-white shadow-sm col-sm-12 col-md-4 col-lg-3">
+        <div class="sidebar-heading text-center pt-4 primary-text fs-5 fw-bold text-capitalize">
+            Панель администратора {{ request.user }}
+        </div>
+
+        <div class="list-group list-group-flush my-3 text-capitalize p-2">
+            <a href="/" class="list-group-item list-group-item-action  text-transparent active btn">
+                Главная
+            </a>
+            <a href="#" class="list-group-item list-group-item-action  text-transparent ">
+                Пользователи
+            </a>
+            <a href="/groups" class="list-group-item list-group-item-action my-2 text-transparent ">
+              Группы
+            </a>
+            <a href="/science" class="list-group-item list-group-item-action my-2 text-transparent ">
+              предметы
+            </a>
+            <a href="/score" class="list-group-item list-group-item-action my-2 text-transparent ">
+              оценки
+            </a>
+            
+        </div>
+        </div> 
+        {% endif %}
+        
+        
+        {% block content %}
+        {% endblock content %}
+
+
+
+
+      <script>
+        function Close(){
+          document.querySelector('.alert').style.display = "none";
+        }
+      </script>
+
+    </body>
+    </html>
