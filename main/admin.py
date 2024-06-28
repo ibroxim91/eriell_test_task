@@ -55,12 +55,13 @@ class ScienceAdmin(admin.ModelAdmin):
 class ScoreAdmin(admin.ModelAdmin):
     list_display = ("id", "science", "group", "student", "point")
 
-    # преподаватель может выбирать только своих учеников
+    # преподаватель может выбирать только своих учеников и group
     def get_form(self, request, obj, **kwargs):
 
         form = super(ScoreAdmin, self).get_form(request, obj, **kwargs)
         if request.user.position == teacher:
             form.base_fields['student'] = forms.ModelChoiceField(queryset=request.user.teacher_students())
+            form.base_fields['group'] = forms.ModelChoiceField(queryset=Group.objects.filter(teacher=request.user))
         if request.user.position == director:
             form.base_fields['student'] = forms.ModelChoiceField(User.objects.filter(position=student))
         return form  
